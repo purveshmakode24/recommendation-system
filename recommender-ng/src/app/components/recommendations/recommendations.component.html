@@ -1,0 +1,33 @@
+<h2>Recommendation System - Book</h2>
+
+<p-dataView [value]="recommendedBooks">
+    <ng-template pTemplate="header">
+        <div>
+            <p-dropdown [options]="books" [(ngModel)]="likedBook" optionLabel="Book-Title" [filter]="true" filterBy="Book-Title"
+            [showClear]="true" placeholder="Select a Book you liked" [virtualScroll]="true" [virtualScrollItemSize]="30" (onChange)="onChangeLikedBook($event)">
+            <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value" *ngIf="likedBook">
+                    <div>{{likedBook['Book-Title']}}</div>
+                </div>
+            </ng-template>
+            <ng-template let-book pTemplate="item">
+                <div class="country-item">
+                    <div>{{book['Book-Title']}}</div>
+                </div>
+            </ng-template>
+            </p-dropdown>
+            <h3 *ngIf="recommendedBooksLoading">Recommending Books...</h3>
+        </div>
+    </ng-template>
+    <ng-template let-book pTemplate="listItem" let-rowIndex="rowIndex">
+        <h3 *ngIf="rowIndex==0">Recommended Books to read:</h3>
+        <div class="p-col-12">
+            <div class="book-list-item">
+                <img [src]="book['Image-URL-M']">
+                <div class="book-list-detail">
+                    <div class="book-name">{{book['Book-Title'] | titlecase}}</div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dataView>
